@@ -26,7 +26,7 @@
             <p>
               {{ video.title }}
               <span class="acts">
-                <el-button type="text" @click="editChapter(chapter.id)">编辑</el-button>
+                <el-button type="text" @click="editVideo(video.id)">编辑</el-button>
                 <el-button type="text" @click="removeVideo(video.id)">删除</el-button>
               </span>
             </p>
@@ -55,12 +55,12 @@
     </el-dialog>
 
     <!-- 添加和修改课时表单 -->
-    <el-dialog :visible.sync="dialogVideoFormVisible" title="添加课时">
+    <el-dialog :visible.sync="dialogVideoFormVisible" title="添加小节">
       <el-form :model="video" label-width="120px">
-        <el-form-item label="课时标题">
+        <el-form-item label="小节标题">
           <el-input v-model="video.title" />
         </el-form-item>
-        <el-form-item label="课时排序">
+        <el-form-item label="小节排序">
           <el-input-number v-model="video.sort" :min="0" controls-position="right" />
         </el-form-item>
         <el-form-item label="是否免费">
@@ -105,7 +105,7 @@ export default {
       },
       dialogChapterFormVisible: false, //表示章节弹框的值
       dialogVideoFormVisible: false, // 是否显示课时表单
-      chapterId:{}
+      chapterId: {},
     };
   },
 
@@ -119,8 +119,47 @@ export default {
 
   methods: {
     //=================================小节操作===================================
+    saveOrUpdateVideo() {
+      if (!this.video.id) {
+        this.addVideo();
+      } else {
+        this.updateVideo();
+      }
+    },
+    /**
+     * 修改小节信息
+     */
+    updateVideo() {     
+      
+      video.updateVideoById(this.video).then((respose) => {
+        //关闭弹框
+        this.dialogVideoFormVisible = false;
+        //提示信息
+        this.$message({
+          type: "success",
+          message: "修改小节成功!",
+        });
+        //刷新界面
+        this.getChapterVideo();
+      });
+    },
+
+    /**
+     * 回写小节信息
+     */
+    editVideo(videoid) {
+      //显示弹框
+      this.dialogVideoFormVisible = true;
+      this.video.id = videoid;
+      video.getVideoById(videoid).then((respose) => {
+        this.video = respose.data.eduVideo;
+      });
+    },
+    /**
+     * 删除小节
+     */
     removeVideo(videoId) {
-       this.$confirm("此操作将永久删除此小节, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除此小节, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -141,7 +180,7 @@ export default {
      * 添加小节弹框显示
      */
     openVideo(chapterId) {
-      this.video={}
+      this.video = {};
       //显示弹框
       this.dialogVideoFormVisible = true;
       //设置章节id
@@ -162,10 +201,6 @@ export default {
         //刷新界面
         this.getChapterVideo();
       });
-    },
-
-    saveOrUpdateVideo() {
-      this.addVideo();
     },
 
     //=================================章节操作===================================
@@ -207,7 +242,7 @@ export default {
       //显示弹窗
       this.dialogChapterFormVisible = true;
       //数据回写
-      chapter.getChapterVideoById(chapterid).then((respose) => {
+      chapter.getChapterById(chapterid).then((respose) => {
         this.chapter = respose.data.eduChapter;
       });
     },
@@ -215,9 +250,8 @@ export default {
      * 修改章节
      */
     updateChapterVideoById() {
-      this.title = "修改章节";
       this.chapter.courseId = this.courseId;
-      chapter.updateChapterVideoById(this.chapter).then((respose) => {
+      chapter.updateChapterById(this.chapter).then((respose) => {
         //关闭弹框
         this.dialogChapterFormVisible = false;
         //提示信息
@@ -271,7 +305,7 @@ export default {
       this.$router.push({ path: "/course/info/" + this.courseId });
     },
     next() {
-      this.$router.push({ path: "/course/publish/1" });
+      this.$router.push({ path: "/course/publish/" + this.courseId });
     },
   },
 };

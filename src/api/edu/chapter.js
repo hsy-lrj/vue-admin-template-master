@@ -34,7 +34,7 @@ export default {
   /**
    * 根据id更新
    */
-  updateChapterVideoById(eduChapter) {
+  updateChapterById(eduChapter) {
     return request({
       url: `/eduservice/chapter/updateChapterById`,
       method: 'post',

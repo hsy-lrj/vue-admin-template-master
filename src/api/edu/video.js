@@ -20,5 +20,25 @@ addVideo(eduVideo) {
       url: `/eduservice/video/deleteVideo/${id}`,
       method: 'delete'
     })
+  },
+  /**
+   * 根据id查询小节
+   */
+  getVideoById(id) {
+    return request({
+      url: `/eduservice/video/getVideoById/${id}`,
+      method: 'get'
+    })
+  },
+  /**
+   * 根据id修改小节
+   */
+  updateVideoById(eduVideo){
+    return request({
+      url: `/eduservice/video/updateVideoById`,
+      method: 'post',
+      data:eduVideo
+    })
   }
+
 }

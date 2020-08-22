@@ -11,7 +11,6 @@ export default {
             method: 'get'
         })
     },
-
     /**
      * 添加课程
      */
@@ -31,7 +30,6 @@ export default {
             method: 'get'
         })
     },
-
      /**
      * 更新课程查询基本信息
      */
@@ -41,5 +39,26 @@ export default {
             method: 'post',
             data: courseInfoVo
         })
+    },
+    /**
+     * 根据课程id查询课程确认信息
+     */
+    selectCoursePublishVoById(courseId) {
+        return request({
+            url: `/eduservice/course/selectCoursePublishVoById/${courseId}`,
+            method: 'get',
+        })
+    },
+    /**
+     * 发布课程
+     */
+    publishCourse(id){
+        return request({
+            url: `/eduservice/course/publishCourse/${id}`,
+            method: 'post',
+        })
     }
+
+
+
 }
