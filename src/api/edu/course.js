@@ -1,7 +1,44 @@
 import request from '@/utils/request'
 
 export default {
+    /**
+     * 根据课程id删除课程
+     */
+    removeCourseById(courseId){
+        return request({
+            url: `/eduservice/course/deleteCourse/${courseId}`,
+            method: 'delete'
+        })
+    },
 
+    /**
+     * 查询所有课程列表
+     */
+    getCourseList(){
+        return request({
+            url: `/eduservice/course/getCourseList`,
+            method: 'get'
+        })
+    },
+    /**
+     * 查询所有课程列表(分页)
+     */
+    pageCourseList(page, limit){
+        return request({
+            url: `/eduservice/course/pageCourseList/${page}/${limit}`,
+            method: 'get'
+        })
+    },
+    /**
+     * 查询所有课程列表(分页，条件)
+     */
+    pageCourseCondition(page,limit,courseQuery){
+        return request({
+            url: `/eduservice/course/pageCourseCondition/${page}/${limit}`,
+            method: 'post',
+            data:courseQuery
+        })
+    },
     /**
      * 获取课程列表
      */

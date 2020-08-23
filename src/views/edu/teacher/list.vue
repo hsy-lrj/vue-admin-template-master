@@ -113,7 +113,7 @@ export default {
           this.list = response.data.records;
           this.total = response.data.total;
         })
-        .catch((error) => {
+        .catch((error) => { 
           //请求失败
           console.log(error);
         });
@@ -133,7 +133,7 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
-      }).then(() => {
+        }).then(() => {
         teacher
           .removeTeacherById(id)
           .then((response) => {
