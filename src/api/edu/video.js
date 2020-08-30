@@ -39,6 +39,15 @@ addVideo(eduVideo) {
       method: 'post',
       data:eduVideo
     })
+  },
+  /**
+   * 删除视频
+   */
+  removeVideo(videoId){
+    return request({
+      url: `/eduvod/video/removeVideo/${videoId}`,
+      method:'delete',
+    })
   }
 
 }
