@@ -136,88 +136,36 @@ export const constantRouterMap = [{
             }
         ]
     },
-
+    // banner管理
     {
-        path: '/form',
+        path: '/banner',
         component: Layout,
+        redirect: '/example/table',
+        name: 'banner管理',
+        meta: { title: 'banner管理', icon: 'example' },
         children: [{
-            path: 'index',
-            name: 'Form',
-            component: () =>
-                import ('@/views/form/index'),
-            meta: { title: 'Form', icon: 'form' }
-        }]
-    },
-
-    {
-        path: '/nested',
-        component: Layout,
-        redirect: '/nested/menu1',
-        name: 'Nested',
-        meta: {
-            title: 'Nested',
-            icon: 'nested'
-        },
-        children: [{
-                path: 'menu1',
+                path: 'list',
+                name: 'banner列表',
                 component: () =>
-                    import ('@/views/nested/menu1/index'), // Parent router-view
-                name: 'Menu1',
-                meta: { title: 'Menu1' },
-                children: [{
-                        path: 'menu1-1',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-1'),
-                        name: 'Menu1-1',
-                        meta: { title: 'Menu1-1' }
-                    },
-                    {
-                        path: 'menu1-2',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-2'),
-                        name: 'Menu1-2',
-                        meta: { title: 'Menu1-2' },
-                        children: [{
-                                path: 'menu1-2-1',
-                                component: () =>
-                                    import ('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                                name: 'Menu1-2-1',
-                                meta: { title: 'Menu1-2-1' }
-                            },
-                            {
-                                path: 'menu1-2-2',
-                                component: () =>
-                                    import ('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                                name: 'Menu1-2-2',
-                                meta: { title: 'Menu1-2-2' }
-                            }
-                        ]
-                    },
-                    {
-                        path: 'menu1-3',
-                        component: () =>
-                            import ('@/views/nested/menu1/menu1-3'),
-                        name: 'Menu1-3',
-                        meta: { title: 'Menu1-3' }
-                    }
-                ]
+                    import ('@/views/edu/banner/list'),
+                meta: { title: 'banner列表', icon: 'table' }
             },
             {
-                path: 'menu2',
+                path: 'save',
+                name: '添加banner',
                 component: () =>
-                    import ('@/views/nested/menu2/index'),
-                meta: { title: 'menu2' }
+                    import ('@/views/edu/banner/save'),
+                meta: { title: '添加banner', icon: 'tree' }
+            },
+            {
+                path: 'edit/:id',
+                name: '编辑banner',
+                component: () =>
+                    import ('@/views/edu/banner/save'),
+                meta: { title: '编辑banner', noCache: true },
+                hidden: true
             }
         ]
-    },
-
-    {
-        path: 'external-link',
-        component: Layout,
-        children: [{
-            path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-            meta: { title: 'External Link', icon: 'link' }
-        }]
     },
 
     { path: '*', redirect: '/404', hidden: true }
